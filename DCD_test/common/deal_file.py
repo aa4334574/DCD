@@ -15,7 +15,7 @@ class Deal_file():
         nrows = sheet.nrows
         dic = {}
         for i in range(nrows):
-            key = sheet.cell(i,0).value#获取第1列行第i行的表格值
+            key = sheet.cell(i,0).value#获取第1列行第i行的表格值22
             value = sheet.cell(i,1).value#获取第2列第i行的表格值
             dic['key'] = value
         return dic
