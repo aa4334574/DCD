@@ -1,5 +1,5 @@
 import pymysql.cursors
-
+from DCD_test.common.deal_file import log
 #连接数据库
 # connect = pymysql.connect(
 #         host = '124.193.177.45',
@@ -20,16 +20,36 @@ class mysql():
         db = 'aqr_develop_v3')
         self.cursor = self.connect.cursor()
 
+    def update(self,sql):
+        success = True
+        try:
+            execute_mum = self.cursor.execute(sql)
+            self.connect.commit()
+            print(execute_mum)
+        except Exception as e:
+            log().logger.exception('e')
+            success = False
+        return (success)
+
     def select(self,sql):
         try:
-            a=self.cursor.execute(sql1)
+            execute_mum = self.cursor.execute(sql)
+            print(execute_mum)
+
         except Exception as e:
-            print(e)
-        return (self.cursor.fetchall(),a.rowcount)
+            log().logger.exception('e')
+        return self.cursor.fetchall()
 
 
-sql = r'select  * from content   order by  id desc  limit 10'
-mysql.select(sql)
+    def close(self):
+        self.connect.close()
+sql = 'select * from datafile limit 1000'
+# print(mysql().select(sql))
+message = mysql().select(sql)
+
+for i in message:
+    print (i)
+
 
 # #
 
